@@ -41,4 +41,12 @@ contract MarsEnergyToken is ERC20 {
         if (balanceOf(msg.sender) < _amount) revert InsufficientBalance();
         _burn(msg.sender, _amount);
     }
+
+    function transfer(
+        address to,
+        uint256 value
+    ) public virtual override returns (bool success) {
+        require(balanceOf(msg.sender) >= value, "Insufficient balance");
+        success = super.transfer(to, value);
+    }
 }
